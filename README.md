@@ -1,7 +1,6 @@
 
 # BrightStop
-A dumb non-interactive slider for the missing brightness control on desktop 
-(Linux)
+A dumb non-interactive slider for the missing brightness control on Linux desktop \n
 Dependencies : 
 zenity, xrandr, awk, bc
 
