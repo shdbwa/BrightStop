@@ -1,11 +1,19 @@
 #!/bin/bash
+# A 
+#DEPENDENCY CHECK
+for name in zenity xrandr bc awk grep
+do
+  [[ $(which $name 2>/dev/null) ]] || { echo -en "\n\e[31m\e[4m\e[1m$name\e[0m needs to be installed.\e[0m";deps=1; }
+done
+[[ $deps -ne 1 ]] && echo "OK" || { echo -en "\nPlease install \e[31m\e[4m\e[1m$name\e[0m";exit 1; } & notify-send "Please install $name"
+# Create a connected displays list using xrandr
 LIST_DISPLAYS=`xrandr -q|grep +|awk -F"connected" '{ print $1 }'|grep '\-0'`;
-
+# Graphical zenity list window to select desired display
 SELDISPLAY=`zenity --width=80 --height=160  --list --title 'Desktop Brightness' --column "DISPLAY" $LIST_DISPLAYS`;
-
+# Graphical zenity slider window 
 VALUE=`zenity --scale --title "Brightness" --text $SELDISPLAY --min-value=2 --max-value=15 --step=1 --value=10`;
-
+# Convert useless value to usable ones
 VALUE_RATIO=`bc <<< "scale=1; $VALUE / 10"`;
-
+# Use xrandr to set desired brightness for desired display
 xrandr --output $SELDISPLAY --brightness $VALUE_RATIO;
 

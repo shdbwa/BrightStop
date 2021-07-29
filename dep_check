@@ -1,0 +1,6 @@
+#!/bin/bash 
+for name in zenity xrandr bc awk grep azer
+do
+  [[ $(which $name 2>/dev/null) ]] || { echo -en "\n\e[31m\e[4m\e[1m$name\e[0m needs to be installed.\e[0m";deps=1; }
+done
+[[ $deps -ne 1 ]] && echo "OK" || { echo -en "\nPlease install \e[31m\e[4m\e[1m$name\e[0m";exit 1; } & notify-send "Please install $name"
