@@ -1,5 +1,5 @@
 #!/bin/bash 
-for name in zenity xrandr bc awk grep azer
+for name in zenity xrandr bc awk grep ffaakkee_eerroorr
 do
   [[ $(which $name 2>/dev/null) ]] || { echo -en "\n\e[31m\e[4m\e[1m$name\e[0m needs to be installed.\e[0m";deps=1; }
 done
