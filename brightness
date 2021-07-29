@@ -1,0 +1,11 @@
+#!/bin/bash
+LIST_DISPLAYS=`xrandr -q|grep +|awk -F"connected" '{ print $1 }'|grep '\-0'`;
+
+SELDISPLAY=`zenity --width=80 --height=160  --list --title 'Desktop Brightness' --column "DISPLAY" $LIST_DISPLAYS`;
+
+VALUE=`zenity --scale --title "Brightness" --text $SELDISPLAY --min-value=2 --max-value=15 --step=1 --value=10`;
+
+VALUE_RATIO=`bc <<< "scale=1; $VALUE / 10"`;
+
+xrandr --output $SELDISPLAY --brightness $VALUE_RATIO;
+
